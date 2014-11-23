@@ -5,6 +5,10 @@
 # they can be manipulated to preserve state inside of an R object. They also 
 # show the uses of the special assignment operator "<<-".
 
+# In R the return value of a function is the last statement.
+# All of these functions could have been written as:
+# return(x), etc... as the last line.
+
 # For this assignment, assume that the matrix supplied is always invertible.
 
 # This function creates a special "matrix" object that can cache its inverse.
@@ -34,9 +38,6 @@ makeCacheMatrix <- function(x = matrix()) {
     }
 
     # This function returns the underlying matrix to be inveresed
-    # In R the return value of a function is the last statement.
-    # all of these functions could have been written as:
-    # return(x), etc... as the last line.
     # Sample call: cm$get()
     get <- function() 
         x
