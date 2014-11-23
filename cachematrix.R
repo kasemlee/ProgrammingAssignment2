@@ -3,20 +3,20 @@
 # benefit to caching the inverse of a matrix rather than compute it repeatedly.
 # The following two functions demonstrate how the scoping rules work and how 
 # they can be manipulated to preserve state inside of an R object. They also 
-# show the uses of the special assignment operator "<<-"
+# show the uses of the special assignment operator "<<-".
 
 # For this assignment, assume that the matrix supplied is always invertible.
 
-# This function creates a special "matrix" object that can cache its inverse
+# This function creates a special "matrix" object that can cache its inverse.
 # x = The matrix to be inversed
 # m = The inverse matrix (The result)
 # Sample call: cm<-makeCacheMatrix(matrix(c(1,2,3,4), nrow=2, ncol=2))
 makeCacheMatrix <- function(x = matrix()) {
     # Initialize the inverse matrix to NULL during the first call to 
-    # makeCacheMatrix
+    # makeCacheMatrix.
     # This is needed because ig getinverse() is called immediately after
-    # the makeCacheMatrix function is constructed, without a call to setinverse
-    # we know we must first get the inverse of the matrix in cacheSolve.  
+    # the makeCacheMatrix function is constructed, without a call to setinverse.
+    # We know we must first get the inverse of the matrix in cacheSolve.  
     m <- NULL
     
     # This function sets a new value for the underlying matrix
@@ -29,7 +29,7 @@ makeCacheMatrix <- function(x = matrix()) {
         x <<- y
         
         # We must reset m to NULL since we are modifying the underlying
-        # matrix and the cached value is no longer the valid
+        # matrix and the cached value is no longer the valid.
         m <<- NULL
     }
 
@@ -44,12 +44,12 @@ makeCacheMatrix <- function(x = matrix()) {
     # setinverse should be used carefully as what we pass to this function will
     # be what the setinverse returns, which might not be the real inverse of 
     # the underlying matrix x if we call this function directly. (Not called 
-    # after calling solve() in cashSolve)
+    # after calling solve() in cashSolve).
     setinverse <- function(inverse) 
         m <<- inverse
     
     # Returns the inverse matrix.  Will be null if setmean has not been called 
-    # or if set() is called after the last call to setinverse
+    # or if set() is called after the last call to setinverse.
     # Sample Call: cm$getinverse()
     getinverse <- function()        
         m
@@ -60,7 +60,7 @@ makeCacheMatrix <- function(x = matrix()) {
     # of functions (and variables if we wish) that we want to expose
     # as public.  these are accessed with the $ operator.  Any variables
     # declared inside makeCacheMatrix but not exported as part of this list
-    # are private...they are inaccessible to any caller of makeCacheMatrix
+    # are private...they are inaccessible to any caller of makeCacheMatrix.
     list(set = set, get = get,
          setinverse = setinverse,
          getinverse = getinverse)
@@ -88,9 +88,9 @@ cacheSolve <- function(x) {
     m <- solve(data)
     
     # Now set the inverse matrix in x so we cache it and dont need to needlessly
-    # recompute it
+    # recompute it.
     x$setinverse(m)
     
-    # Return the caching inverse matrix
+    # Return the caching inverse matrix.
     m
 }
